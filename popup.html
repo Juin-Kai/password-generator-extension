@@ -18,7 +18,7 @@
   #out {
     flex: 1; min-width: 0; border: 0; background: none; color: var(--text);
     font: 600 15px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: .5px; overflow-x: auto; white-space: nowrap;
+    letter-spacing: .5px;
   }
 
   .icon {
@@ -29,7 +29,7 @@
   .icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8;
               stroke-linecap: round; stroke-linejoin: round; }
 
-  .label { color: var(--dim); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; }
+  .len span { color: var(--dim); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; }
   .len { margin: 16px 0 6px; display: flex; align-items: center; justify-content: space-between; }
   #num {
     width: 58px; text-align: center; padding: 5px; color: var(--text);
@@ -38,7 +38,7 @@
   }
   #num:focus { outline: none; border-color: var(--accent); }
 
-  #len { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 2px;
+  #len { appearance: none; width: 100%; height: 4px; border-radius: 2px;
          background: var(--line); cursor: pointer; }
   #len::-webkit-slider-thumb {
     -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
@@ -52,7 +52,8 @@
     font-size: 13px; color: var(--dim); user-select: none;
   }
   .opt:hover { border-color: #3a4250; }
-  .opt input { -webkit-appearance: none; appearance: none; margin: 0; width: 15px; height: 15px;
+  .wide { grid-column: 1 / -1; }
+  .opt input { appearance: none; margin: 0; width: 15px; height: 15px;
                border: 1.5px solid var(--line); border-radius: 4px; cursor: pointer; }
   .opt input:checked { background: var(--accent); border-color: var(--accent); }
   .opt input:checked::after { content: "✓"; display: block; color: #14161a; font-size: 11px;
@@ -76,7 +77,7 @@
 </div>
 
 <div class="len">
-  <span class="label">Length</span>
+  <span>Length</span>
   <input id="num" type="number" min="6" max="64" value="16" aria-label="Password length">
 </div>
 <input id="len" type="range" min="6" max="64" value="16" aria-label="Password length slider">
@@ -86,6 +87,7 @@
   <label class="opt"><input type="checkbox" id="upper" checked> A-Z</label>
   <label class="opt"><input type="checkbox" id="digits" checked> 0-9</label>
   <label class="opt"><input type="checkbox" id="symbols" checked> !@#$</label>
+  <label class="opt wide"><input type="checkbox" id="nolook"> Avoid look-alikes (l I O 0 1)</label>
 </div>
 
 <button id="regen">Generate</button>

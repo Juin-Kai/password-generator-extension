@@ -3,12 +3,12 @@ import { generate, SETS } from "./gen.js";
 const $ = id => document.getElementById(id);
 const len = $("len"), num = $("num"), out = $("out"), err = $("err");
 const kinds = Object.keys(SETS);
-const copy = $("copy");
+const copy = $("copy"), nolook = $("nolook");
 
 function refresh() {
   err.textContent = "";
   try {
-    out.value = generate(+len.value, kinds.filter(k => $(k).checked));
+    out.value = generate(+len.value, kinds.filter(k => $(k).checked), nolook.checked);
   } catch (e) {
     out.value = "";
     err.textContent = e.message;
@@ -32,5 +32,5 @@ copy.onclick = async () => {
 };
 
 $("regen").onclick = refresh;
-kinds.forEach(k => ($(k).onchange = refresh));
+document.onchange = refresh;        // change bubbles: covers all five checkboxes
 refresh();

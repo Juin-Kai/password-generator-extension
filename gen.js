@@ -1,9 +1,11 @@
 export const SETS = {
-  lower: "abcdefghijkmnopqrstuvwxyz",
-  upper: "ABCDEFGHJKLMNPQRSTUVWXYZ",
-  digits: "23456789",
+  lower: "abcdefghijklmnopqrstuvwxyz",
+  upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  digits: "0123456789",
   symbols: "!@#$%^&*()-_=+[]{};:,.?/"
 };
+
+const LOOKALIKE = /[lIO01]/g;
 
 // Unbiased pick: reject bytes in the ragged tail of the 0-255 range.
 function randIndex(n) {
@@ -16,8 +18,8 @@ function randIndex(n) {
 }
 
 // Returns a password of `length` with at least one char from every chosen set.
-export function generate(length, kinds) {
-  const sets = kinds.map(k => SETS[k]);
+export function generate(length, kinds, avoidLookalikes = false) {
+  const sets = kinds.map(k => avoidLookalikes ? SETS[k].replace(LOOKALIKE, "") : SETS[k]);
   if (!sets.length) throw new Error("pick at least one character set");
   if (length < sets.length) throw new Error("length too short for the chosen sets");
 
